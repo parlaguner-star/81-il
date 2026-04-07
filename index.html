@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech4Peace (#8153) – 81 İl. 81 Proje. 8153. | İnteraktif Yardım Haritası</title>
+  <meta name="description" content="Tech4Peace (#8153), Türkiye'nin her köşesindeki köy okullarına STEM eğitimi ve malzeme desteği sağlar. Haritadan okul seç, ihtiyaçları gör, destek ol.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🕊️</text></svg>">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar" aria-label="Ana Navigasyon">
+    <div class="navbar-container">
+      <a href="#" class="navbar-logo">
+        <div class="logo-icon"><img src="PicsArt_03-30-10.26.36 copy.png" alt="Tech4Peace Logo"></div>
+        Tech4Peace
+      </a>
+      <div class="navbar-links" id="navLinks">
+        <a href="#harita">Harita</a>
+        <a href="#nasil-calisir">Nasıl Çalışır?</a>
+        <a href="#hakkimizda">Hakkımızda</a>
+        <a href="#harita" class="btn-volunteer">Gönüllü Ol</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menüyü Aç/Kapat">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-container">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        FLL · FRC · FTC – Açı Lisesi Robotik Takımı #8153
+      </div>
+      <h1>81 İl. 81 Proje. <span>8153.</span></h1>
+      <p class="hero-subtitle">Türkiye'nin her köşesindeki okullara ulaşıyoruz.</p>
+      <p class="hero-description">
+        Yardıma ihtiyaç duyan köy okullarını görünür kılıyor,
+        gönüllü takım ve bireyleri bu okullarla buluşturuyoruz.
+      </p>
+      <a href="#harita" class="hero-cta">
+        Haritayı Keşfet
+        <span class="arrow">→</span>
+      </a>
+      <div class="hero-counters">
+        <div class="counter-card">
+          <div class="counter-number" data-target="3">0</div>
+          <div class="counter-label">Ziyaret Tamamlandı</div>
+        </div>
+        <div class="counter-card">
+          <div class="counter-number" data-target="12">0</div>
+          <div class="counter-label">Okul Desteklendi</div>
+        </div>
+        <div class="counter-card">
+          <div class="counter-number" data-target="847">0</div>
+          <div class="counter-label">Çocuğa Ulaşıldı</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP SECTION -->
+  <section class="map-section" id="harita">
+    <div class="section-header">
+      <div class="section-tag">🗺️ İNTERAKTİF HARİTA</div>
+      <h2 class="section-title">Türkiye Yardım Haritası</h2>
+      <p class="section-subtitle">Haritadan bir il seçerek yardıma ihtiyaç duyan okulları keşfedin.</p>
+    </div>
+    <div class="map-container">
+      <div class="map-wrapper">
+        <div class="map-controls">
+          <button id="zoomIn" title="Yakınlaştır" aria-label="Haritayı yakınlaştır">+</button>
+          <button id="zoomOut" title="Uzaklaştır" aria-label="Haritayı uzaklaştır">−</button>
+          <button id="zoomReset" title="Sıfırla" aria-label="Harita yakınlaştırmayı sıfırla">⟳</button>
+        </div>
+        <div class="map-svg-container" id="mapSvgContainer">
+          <!-- SVG will be loaded here -->
+        </div>
+        <div class="map-legend">
+          <div class="legend-item">
+            <div class="legend-dot active"></div>
+            Yardım Bekleyen Okul
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot visited"></div>
+            Ziyaret Edildi
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot none"></div>
+            Henüz Kayıt Yok
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel" id="detailPanel">
+        <div class="detail-empty" id="detailEmpty">
+          <div class="empty-icon">🗺️</div>
+          <h3>Bir il seçin</h3>
+          <p>Haritadan bir ile tıklayarak yardıma ihtiyaç duyan okulları görüntüleyin.</p>
+        </div>
+        <div class="detail-content" id="detailContent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLTIP -->
+  <div class="map-tooltip" id="mapTooltip" role="tooltip"></div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="nasil-calisir">
+    <div class="how-container">
+      <div class="section-header section-header-center">
+        <div class="section-tag">🤝 Süreç</div>
+        <h2 class="section-title">Nasıl Çalışır?</h2>
+        <p class="section-subtitle">Dört basit adımda bir okula destek olabilirsiniz.</p>
+      </div>
+      <div class="how-cards">
+        <div class="how-card">
+          <div class="step-number">1</div>
+          <div class="how-icon">🗺️</div>
+          <h4>Haritadan Okul Seç</h4>
+          <p>İnteraktif haritadan bir il seçerek bölgedeki okulları keşfedin.</p>
+        </div>
+        <div class="how-card">
+          <div class="step-number">2</div>
+          <div class="how-icon">📋</div>
+          <h4>İhtiyaçları İncele</h4>
+          <p>Her okulun detay sayfasında ihtiyaç listesini görüntüleyin.</p>
+        </div>
+        <div class="how-card">
+          <div class="step-number">3</div>
+          <div class="how-icon">📬</div>
+          <h4>Destek Formunu Doldur</h4>
+          <p>Hangi okulara nasıl destek olabileceğinizi belirtin.</p>
+        </div>
+        <div class="how-card">
+          <div class="step-number">4</div>
+          <div class="how-icon">🤝</div>
+          <h4>Buluşturalım</h4>
+          <p>Tech4Peace sizi okulla buluşturur ve süreci koordine eder.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="hakkimizda">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="logo-icon"><img src="PicsArt_03-30-10.26.36 copy.png" alt="Tech4Peace Logo"></div>
+            Tech4Peace
+          </div>
+          <p>
+            Ekim 2019'da Açı Lisesi'nde kurulan Tech4Peace (#8153), öğrencilerin STEM alanlarındaki yeteneklerini geliştirmek ve
+            teknoloji ile barış için çalışmak amacıyla çalışan bir FRC robot takımıdır.
+          </p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/acihsrobotics" target="_blank" title="Instagram" aria-label="Instagram">📷</a>
+            <a href="https://hsrobotics.acischools.k12.tr" target="_blank" title="Web Sitesi" aria-label="Web Sitesi">🌐</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Hızlı Linkler</h4>
+          <a href="#harita">Harita</a>
+          <a href="#nasil-calisir">Nasıl Çalışır?</a>
+          <a href="#hakkimizda">Hakkımızda</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Tech4Peace (#8153) – Açı Lisesi
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Okul Detayları">
+    <div class="modal" id="schoolModal">
+      <button class="modal-close" id="modalClose" aria-label="Kapat">✕</button>
+      <div class="modal-header" id="modalHeader">
+        <h2 id="modalSchoolName"></h2>
+        <div class="modal-header-meta" id="modalHeaderMeta"></div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-info" id="modalInfo">
+            <h3>📖 Okul Bilgileri</h3>
+            <div class="info-list" id="modalInfoList"></div>
+            <div class="modal-photo" id="modalPhoto">📸 Fotoğraf henüz eklenmedi</div>
+          </div>
+          <div class="modal-needs" id="modalNeeds">
+            <h3>📦 İhtiyaç Duyulan Destekler</h3>
+            <div class="needs-list" id="modalNeedsList"></div>
+            <div class="curriculum-info" id="modalCurriculum"></div>
+          </div>
+        </div>
+        <div class="support-form-section">
+          <h3>💛 Bu Okula Destek Olmak İstiyorum</h3>
+          <form id="supportForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="formName">Ad Soyad <span class="required">*</span></label>
+                <input type="text" id="formName" required placeholder="Adınız Soyadınız">
+              </div>
+              <div class="form-group">
+                <label for="formEmail">E-posta <span class="required">*</span></label>
+                <input type="email" id="formEmail" required placeholder="ornek@email.com">
+              </div>
+              <div class="form-group">
+                <label for="formPhone">Telefon</label>
+                <input type="tel" id="formPhone" placeholder="0 (5XX) XXX XX XX">
+              </div>
+              <div class="form-group">
+                <label for="formOrg">Kurum / Takım</label>
+                <input type="text" id="formOrg" placeholder="Bağlı olduğunuz kurum veya takım">
+              </div>
+              <div class="form-group full-width">
+                <label>Nasıl Destek Olmak İstiyorsunuz?</label>
+                <div class="checkbox-group" id="checkboxGroup">
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="support" value="malzeme">
+                    Malzeme / Eşya Götürmek
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="support" value="stem">
+                    STEM Eğitimi Vermek
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="support" value="fll">
+                    FLL Tanıtımı Yapmak
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="support" value="maddi">
+                    Maddi Bağış
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="support" value="diger">
+                    Diğer
+                  </label>
+                </div>
+              </div>
+              <div class="form-group full-width">
+                <label for="formMessage">Mesaj / Not</label>
+                <textarea id="formMessage" placeholder="Eklemek istediğiniz bilgiler..."></textarea>
+              </div>
+            </div>
+            <input type="hidden" id="formSchoolId">
+            <button type="submit" class="btn-submit">Destek Olmak İstiyorum</button>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">✅</div>
+            <h4>Talebiniz Alındı!</h4>
+            <p>Tech4Peace ekibi en kısa sürede sizinle iletişime geçecek. Desteğiniz için teşekkür ederiz!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
